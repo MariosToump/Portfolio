@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marios Toumpoulas - Professional Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: #1a1a2e;
+            background: #f0f2f5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .cv-card {
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-text h1 {
+            font-size: 3.2em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .header-text .tagline {
+            font-size: 1.15em;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            font-weight: 400;
+            color: #cbd5e1;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .content {
+            padding: 60px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #0f172a;
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #6366f1;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .section h3 {
+            color: #1e293b;
+            font-size: 1.4em;
+            margin-bottom: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .section li {
+            margin-bottom: 10px;
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .experience-item {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 4px solid #6366f1;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+            transform: translateX(4px);
+        }
+
+        .experience-item h3 {
+            margin-top: 0;
+            color: #0f172a;
+        }
+
+        .experience-item .date {
+            color: #6366f1;
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .experience-item .company {
+            color: #64748b;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .skills-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .skills-section h3 {
+            color: #0f172a;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        .education-item {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #6366f1;
+        }
+
+        .education-item h4 {
+            color: #0f172a;
+            margin-bottom: 8px;
+            font-size: 1.15em;
+        }
+
+        .education-item .institution {
+            color: #64748b;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .education-item .year {
+            color: #6366f1;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .project-item {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #6366f1;
+        }
+
+        .project-item h4 {
+            color: #0f172a;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .languages-interests {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .languages-interests > div {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .languages-interests h4 {
+            color: #0f172a;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: #0f172a;
+            color: #cbd5e1;
+            font-size: 0.95em;
+        }
+
+        .footer a {
+            color: #6366f1;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 30px;
+            }
+
+            .header-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-image {
+                margin: 0 auto;
+            }
+
+            .header-text h1 {
+                font-size: 2.2em;
+            }
+
+            .contact-info {
+                justify-content: center;
+            }
+
+            .content {
+                padding: 30px;
+            }
+
+            .section h2 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cv-card">
+            <div class="header">
+                <div class="header-content">
+                    <img src="profile-main.jpg" alt="Marios Toumpoulas" class="profile-image">
+                    <div class="header-text">
+                        <h1>Marios Toumpoulas</h1>
+                        <p class="tagline">Digital Trust & Safety • Web & Software Development • Technical Operations • Data Analysis</p>
+                        <div class="contact-info">
+                            <div class="contact-item">📍 Sofia, Bulgaria</div>
+                            <div class="contact-item">📧 marios_toump@outlook.com</div>
+                            <div class="contact-item">📱 +30 697 267 6786</div>
+                            <div class="contact-item"><a href="https://linkedin.com/in/marios-toumpoulas-825347240" target="_blank">LinkedIn</a></div>
+                            <div class="contact-item"><a href="https://github.com/MariosToump" target="_blank">GitHub</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="section">
+                    <h2>Professional Summary</h2>
+                    <p>Results-driven professional with extensive hands-on experience spanning digital trust and safety, full-stack web development, precision manufacturing operations, and data systems management. Proven track record of building robust web applications using Django/Python, managing complex SAP-based inventory systems, and operating CNC machinery with precision. Strong analytical skills developed through years of industrial problem-solving and data-driven decision making. Currently expanding expertise into mobile app development and AI-assisted programming. Passionate about continuous learning, quality improvement, and delivering high-impact technical solutions across diverse domains.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Comprehensive Skills Portfolio</h2>
+                    
+                    <div class="skills-section">
+                        <h3>💻 Web & Software Development</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Django Framework</span>
+                            <span class="skill-tag">Full-Stack Development</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">HTML5/CSS3</span>
+                            <span class="skill-tag">Responsive Web Design</span>
+                            <span class="skill-tag">User Authentication Systems</span>
+                            <span class="skill-tag">REST API Integration</span>
+                            <span class="skill-tag">Database Design</span>
+                            <span class="skill-tag">Version Control (Git)</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-section">
+                        <h3>📊 Data Analysis & Systems Management</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Advanced Excel</span>
+                            <span class="skill-tag">SAP ERP Systems</span>
+                            <span class="skill-tag">Inventory Management</span>
+                            <span class="skill-tag">Database Administration</span>
+                            <span class="skill-tag">Data Analysis</span>
+                            <span class="skill-tag">Predictive Maintenance</span>
+                            <span class="skill-tag">Breakdown Analysis</span>
+                            <span class="skill-tag">Resource Optimization</span>
+                            <span class="skill-tag">Performance Tracking</span>
+                            <span class="skill-tag">Process Improvement</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-section">
+                        <h3>⚙️ Precision Manufacturing & Technical Operations</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">CNC Machine Operation</span>
+                            <span class="skill-tag">CNC Programming</span>
+                            <span class="skill-tag">Technical Drawings</span>
+                            <span class="skill-tag">Milling Operations</span>
+                            <span class="skill-tag">Lathe Operations</span>
+                            <span class="skill-tag">Quality Control</span>
+                            <span class="skill-tag">Equipment Calibration</span>
+                            <span class="skill-tag">Machine Setup</span>
+                            <span class="skill-tag">Equipment Troubleshooting</span>
+                            <span class="skill-tag">Safety Protocols</span>
+                            <span class="skill-tag">Preventive Maintenance</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-section">
+                        <h3>🛡️ Digital Trust & Content Safety</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Content Moderation</span>
+                            <span class="skill-tag">Policy Enforcement</span>
+                            <span class="skill-tag">Risk Assessment</span>
+                            <span class="skill-tag">Pattern Recognition</span>
+                            <span class="skill-tag">Quality Assurance</span>
+                            <span class="skill-tag">Cross-functional Collaboration</span>
+                            <span class="skill-tag">International Team Coordination</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-section">
+                        <h3>🚀 Emerging Technologies & Development</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">AI-Assisted Coding</span>
+                            <span class="skill-tag">Mobile App Development</span>
+                            <span class="skill-tag">Flutter/React Native</span>
+                            <span class="skill-tag">Android Development</span>
+                            <span class="skill-tag">iOS Development</span>
+                            <span class="skill-tag">Personal Branding</span>
+                            <span class="skill-tag">Content Strategy</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-section">
+                        <h3>🎯 Core Professional Competencies</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Strategic Problem-Solving</span>
+                            <span class="skill-tag">Analytical Thinking</span>
+                            <span class="skill-tag">Attention to Detail</span>
+                            <span class="skill-tag">Rapid Learning</span>
+                            <span class="skill-tag">Effective Communication</span>
+                            <span class="skill-tag">Team Collaboration</span>
+                            <span class="skill-tag">Adaptability</span>
+                            <span class="skill-tag">Quality Assurance</span>
+                            <span class="skill-tag">Process Optimization</span>
+                            <span class="skill-tag">Critical Thinking</span>
+                            <span class="skill-tag">Time Management</span>
+                            <span class="skill-tag">Leadership</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Professional Experience</h2>
+                    
+                    <div class="experience-item">
+                        <h3>Digital Trust & Safety Analyst</h3>
+                        <div class="company">Telus Digital, Sofia, Bulgaria</div>
+                        <div class="date">February 2025 - Present</div>
+                        <ul>
+                            <li>Safeguard major social media platforms by reviewing and moderating high volumes of user-generated content, ensuring strict adherence to community guidelines and safety policies.</li>
+                            <li>Conduct in-depth risk analysis on flagged content, identifying emerging harmful patterns and implementing precise remediation actions to protect user safety and platform integrity.</li>
+                            <li>Develop and deliver structured feedback to enhance moderation workflows, contributing to continuous improvement of quality assurance processes and policy frameworks.</li>
+                            <li>Collaborate with international cross-functional teams to align on quality standards, share best practices, and drive policy updates based on real-world content trends.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <h3>Maintenance Shop Analyst & Database Specialist</h3>
+                        <div class="company">Sovel S.A., Almyros, Greece</div>
+                        <div class="date">May 2023 - December 2024</div>
+                        <ul>
+                            <li>Orchestrated comprehensive machine parts inventory management by leveraging SAP ERP systems and advanced Excel analytics, ensuring optimal stock levels and minimizing supply chain disruptions.</li>
+                            <li>Conducted detailed breakdown analysis on critical equipment failures, developing data-driven preventive maintenance strategies that reduced unplanned downtime by implementing predictive maintenance schedules.</li>
+                            <li>Tracked and analyzed machinery performance metrics to identify optimization opportunities, resulting in improved operational efficiency and extended equipment lifespan.</li>
+                            <li>Streamlined spare parts ordering workflows and enhanced maintenance logging processes, creating a more transparent and efficient maintenance management system.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <h3>Full-Stack Web Developer</h3>
+                        <div class="company">Sovel S.A., Almyros, Greece</div>
+                        <div class="date">January 2023 - May 2023</div>
+                        <ul>
+                            <li>Architected and developed a comprehensive web-based reporting system using Django framework, revolutionizing communication channels between factory floor personnel and management teams.</li>
+                            <li>Implemented rapid issue reporting functionality with intelligent problem coding systems, enabling real-time status tracking and significantly reducing response times for critical machine issues.</li>
+                            <li>Designed user-friendly interfaces for data visualization and status monitoring, dramatically increasing operational transparency and enhancing workplace safety awareness across the organization.</li>
+                            <li>Integrated authentication and authorization systems to ensure secure access to sensitive operational data while maintaining seamless user experience.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <h3>CNC Machinist & Technical Operator</h3>
+                        <div class="company">Koutsogiannis Steel Workshop & Sovel S.A., Greece</div>
+                        <div class="date">2016 - 2022 (Multiple Roles)</div>
+                        <ul>
+                            <li>Expertly operated and programmed CNC milling machines and precision manufacturing equipment to produce high-tolerance components with strict adherence to technical specifications and quality standards.</li>
+                            <li>Performed complex machine setups, precise calibrations, and routine maintenance procedures to maintain optimal production efficiency and ensure consistent output quality.</li>
+                            <li>Diagnosed and resolved equipment malfunctions through systematic troubleshooting, minimizing production interruptions and maintaining workflow continuity.</li>
+                            <li>Maintained comprehensive workshop databases for inventory tracking and project management, supporting data-driven decision making and continuous improvement initiatives in steel fabrication operations.</li>
+                        </ul>
+                    </div>
+
+                    <div class="experience-item">
+                        <h3>Valve Operator & Logistics Specialist</h3>
+                        <div class="company">Sovel S.A. & Athens International Airport</div>
+                        <div class="date">2014 - 2021</div>
+                        <ul>
+                            <li>Managed industrial valve operations in the casting department, monitoring production processes and ensuring optimal machinery performance while maintaining strict safety compliance protocols.</li>
+                            <li>Coordinated cargo handling operations at Athens International Airport, managing complex logistics with precise inventory tracking and ensuring timely delivery under tight deadline constraints.</li>
+                            <li>Implemented and maintained safety procedures in high-pressure environments, contributing to accident-free operations and regulatory compliance.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Education & Certifications</h2>
+                    
+                    <div class="education-item">
+                        <h4>Diploma in Web Design & Digital Content Creation</h4>
+                        <div class="institution">IEK DELTA Institute, Athens</div>
+                        <div class="year">2019 - 2021 | Level 6 Qualification</div>
+                    </div>
+
+                    <div class="education-item">
+                        <h4>Diploma in Electrical Installations</h4>
+                        <div class="institution">SELETE Technical Vocational High School</div>
+                        <div class="year">2007 - 2014</div>
+                    </div>
+
+                    <div class="education-item">
+                        <h4>Machinist Operator Certification</h4>
+                        <div class="institution">OAED Technical Schools</div>
+                        <div class="year">2007 - 2009</div>
+                    </div>
+
+                    <div class="education-item">
+                        <h4>Professional Development & Technical Certifications</h4>
+                        <div class="institution">Udemy & Online Learning Platforms (2022-2025)</div>
+                        <ul>
+                            <li>Django Python Full-Stack Development</li>
+                            <li>Python Fundamentals & Advanced Programming</li>
+                            <li>Bitcoin & Cryptocurrency Trading</li>
+                            <li>Financial Markets & Day Trading Strategies</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Current Projects & Development Initiatives</h2>
+                    
+                    <div class="project-item">
+                        <h4>Educational Content Platform</h4>
+                        <p>Developing an educational series focused on financial literacy and cryptocurrency fundamentals, creating beginner-friendly content for personal brand building and audience engagement.</p>
+                    </div>
+
+                    <div class="project-item">
+                        <h4>Mobile Application Development</h4>
+                        <p>Actively learning and planning mobile app development projects using Flutter and React Native frameworks, with a focus on leveraging AI-assisted coding tools to accelerate development workflows. Future projects will include practical utility applications and innovative prototypes, with code repositories and deployment plans documented on GitHub.</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Languages & Personal Interests</h2>
+                    <div class="languages-interests">
+                        <div>
+                            <h4>Languages</h4>
+                            <ul>
+                                <li><strong>Greek:</strong> Native proficiency</li>
+                                <li><strong>English:</strong> Professional working proficiency with excellent written and verbal communication skills</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Interests & Hobbies</h4>
+                            <ul>
+                                <li>Music composition and electric guitar performance (2 full-length albums released)</li>
+                                <li>AI tools exploration and automation</li>
+                                <li>Mobile application development</li>
+                                <li>Financial markets and trading strategies</li>
+                                <li>Continuous learning in technology, software development, and digital innovation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>Actively seeking opportunities in web development, mobile app development, data analysis, and technical operations roles</p>
+                <p>References available upon request</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
