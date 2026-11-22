@@ -17,6 +17,9 @@ for (const [name, engine] of [['chromium', chromium], ['webkit', webkit]]) {
     await page.waitForFunction(() => document.querySelector('.hero')?.classList.contains('is-entered'));
     assert.equal(await page.locator('html').getAttribute('lang'), lang);
     assert.equal(await page.locator('h1').count(), 1);
+    assert.equal(await page.locator('.career-stage').count(), 4);
+    assert.equal(await page.locator('.timeline .role-icon').count(), 6);
+    assert.equal(await page.locator('.report-workflow[role="img"] .workflow-step').count(), 3);
     assert.equal(await page.locator('#projects .project-entry').count(), 2);
     assert.equal(await page.locator('#piano-app').count(), 1);
     assert.equal(await page.locator('#neon-riot').count(), 1);
@@ -53,6 +56,9 @@ for (const [name, engine] of [['chromium', chromium], ['webkit', webkit]]) {
       });
       assert.equal(separatedPortrait, true, `${name} ${lang} ${width}: portrait must not overlap the name`);
     }
+    await page.locator('.hero-portrait').hover();
+    await page.waitForFunction(() => new DOMMatrix(getComputedStyle(document.querySelector('.hero-portrait img')).transform).a > 1.01);
+    await page.mouse.move(0, 0);
     await page.locator('[data-filter="technical"]').click();
     assert.equal(await page.locator('.timeline li:visible').count(), 4);
     assert.equal(await page.locator('#accenture').isVisible(), false);
@@ -100,6 +106,8 @@ for (const [name, engine] of [['chromium', chromium], ['webkit', webkit]]) {
     await page.evaluate(() => document.documentElement.style.fontSize = '');
     await page.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto');
+    await page.locator('.hero-portrait').hover();
+    assert.equal(await page.locator('.hero-portrait img').evaluate(img => getComputedStyle(img).transform), 'none');
     await page.locator('[data-filter="technical"]').click();
     await page.emulateMedia({ media: 'print' });
     assert.equal(await page.locator('.timeline li:visible').count(), 6);
@@ -138,6 +146,15 @@ for (const [name, engine] of [['chromium', chromium], ['webkit', webkit]]) {
   assert.equal(await mobilePage.locator('.timeline li:visible').count(), 4);
   await mobilePage.locator('#critical').tap();
   assert.equal(await mobilePage.locator('#critical').isChecked(), true);
+  await mobilePage.locator('#status').selectOption('2');
+  assert.equal(await mobilePage.locator('#summary-status').innerText(), 'Επιλύθηκε');
+  await mobilePage.locator('button[type="reset"]').tap();
+  assert.equal(await mobilePage.locator('#critical').isChecked(), false);
+  await mobilePage.locator('.hero-portrait').tap();
+  assert.equal(await mobilePage.locator('.hero-portrait img').evaluate(img => getComputedStyle(img).transform), 'none');
+  assert.ok(await mobilePage.locator('.hero-portrait').evaluate(el => el.getBoundingClientRect().height >= 350));
+  assert.equal(await mobilePage.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+  await mobilePage.setViewportSize({ width: 844, height: 390 });
   assert.equal(await mobilePage.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
   results.push(`${name}: ${name === 'webkit' ? 'iPhone 13' : 'Pixel 7'} touch emulation PASS`);
   await mobile.close();

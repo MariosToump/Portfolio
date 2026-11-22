@@ -10,6 +10,8 @@ for (const image of await page.locator('.project-visual img').all()) {
 await page.evaluate(() => window.scrollTo(0, 0));
 await page.screenshot({ path: 'test-results/preview.png' });
 await page.locator('#projects').screenshot({ path: 'test-results/projects-preview.png' });
+await page.locator('#experience').screenshot({ path: 'test-results/experience-preview.png' });
+await page.locator('.feature').screenshot({ path: 'test-results/report-feature-preview.png' });
 await page.setViewportSize({ width: 1200, height: 630 });
 await page.goto('http://127.0.0.1:4321/en/');
 await page.evaluate(() => document.fonts.ready);

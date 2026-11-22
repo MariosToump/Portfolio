@@ -1,0 +1,14 @@
+---
+interface Props { label: string; steps: string[] }
+const { label, steps } = Astro.props;
+---
+<div class="report-workflow" role="img" aria-label={`${label}: ${steps.join(' → ')}`}>
+  <div class="workflow-heading">{label}</div>
+  <div class="workflow-track">
+    <div class="workflow-step"><span class="workflow-symbol"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h11l5 5v19H8zM19 4v6h5M12 15h8M12 20h8M12 24h5" /></svg></span><span>{steps[0]}</span></div>
+    <span class="workflow-connector" aria-hidden="true"><span>→</span></span>
+    <div class="workflow-step"><span class="workflow-symbol"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 29V4m0 1c6-4 10 4 17 0v14c-7 4-11-4-17 0M16 8v5m0 3h.01" /></svg></span><span>{steps[1]}</span></div>
+    <span class="workflow-connector" aria-hidden="true"><span>→</span></span>
+    <div class="workflow-step"><span class="workflow-symbol"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="26" height="22" rx="3" /><path d="M3 12h26M8 9h.01M12 9h.01m-4 8 2 2 4-4m3 2h7m-16 6h6m3 0h7" /></svg></span><span>{steps[2]}</span></div>
+  </div>
+</div>

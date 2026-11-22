@@ -4,6 +4,9 @@ import { publicContact } from '../data/config';
 import { Image } from 'astro:assets';
 import portrait from '../assets/marios-portrait.png';
 import ProjectCard from './ProjectCard.astro';
+import RoleIcon from './RoleIcon.astro';
+import CareerOverview from './CareerOverview.astro';
+import ReportWorkflow from './ReportWorkflow.astro';
 import '@fontsource/noto-serif/latin-400.css';
 import '@fontsource/noto-serif/greek-400.css';
 import '@fontsource/noto-sans/latin-400.css';
@@ -56,10 +59,11 @@ const nav = [['projects', t.projects], ['experience', t.experience], ['project',
           <div class="current"><span class="current-dot" aria-hidden="true"></span><div><span class="eyebrow">{t.current}</span><p>{t.currentRole}</p></div></div>
         </div>
         <div class="hero-side">
-        <div class="hero-portrait" data-enter-media aria-hidden="true"><Image src={portrait} alt="" width={640} format="webp" quality={82} fetchpriority="high" loading="eager" data-source="client" data-subject="Marios Toumpoulas" /></div>
+        <div class="hero-portrait" data-enter-media aria-hidden="true"><Image src={portrait} alt="" width={800} widths={[400, 640, 800]} sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1050px) 42vw, 480px" format="webp" quality={82} fetchpriority="high" loading="eager" data-source="client" data-subject="Marios Toumpoulas" /></div>
         </div>
         <aside class="feature" aria-label={t.featured}>
           <p class="eyebrow">{t.featured}</p>
+          <ReportWorkflow label={t.reportFlowLabel} steps={t.reportFlowSteps} />
           <h2>{t.projectTitle}</h2><p>{t.projectShort}</p><a href="#project">{t.projectOpen}<span aria-hidden="true">↗</span></a>
         </aside>
       </section>
@@ -68,9 +72,10 @@ const nav = [['projects', t.projects], ['experience', t.experience], ['project',
         <div class="project-list">{projects.map(project => <ProjectCard project={project} lang={lang} focusLabel={t.focusLabel} />)}</div>
       </section>
       <section id="experience" class="section" aria-labelledby="experience-title">
-        <div class="section-head"><div><p class="eyebrow">{t.experience}</p><h2 id="experience-title">{t.experienceIntro}</h2></div><button class="print-button" data-print hidden>{t.print}<span aria-hidden="true">↗</span></button></div>
+        <div class="section-head"><div><p class="eyebrow">{t.experience}</p><h2 id="experience-title">{t.experienceIntro}</h2><p class="experience-summary">{t.experienceSummary}</p></div><button class="print-button" data-print hidden>{t.print}<span aria-hidden="true">↗</span></button></div>
+        <CareerOverview lang={lang} label={t.careerOverview} labels={t.careerStages} />
         <div class="filters" role="group" aria-label={t.filterLabel} hidden><button data-filter="all" aria-pressed="true">{t.all}</button><button data-filter="operations" aria-pressed="false">{t.operations}</button><button data-filter="technical" aria-pressed="false">{t.technical}</button><span id="filter-count" role="status">{roles.length} {t.showing}</span></div>
-        <ol class="timeline">{roles.map(role => <li id={role.id} data-groups={role.groups.join(' ')}><div class="role-date"><span>{date(role.start, lang)} – {date(role.end, lang)}</span>{role.end === null && <span class="now">{t.current}</span>}</div><div class="role-content"><h3>{role.title[lang]}</h3><p class="employer">{role.employer[lang]}</p><p>{role.description[lang]}</p></div></li>)}</ol>
+        <ol class="timeline">{roles.map(role => <li id={role.id} data-groups={role.groups.join(' ')}><div class="role-date"><span>{date(role.start, lang)} – {date(role.end, lang)}</span>{role.end === null && <span class="now">{t.current}</span>}</div><div class="role-content"><div class="role-heading"><span class="role-art"><RoleIcon kind={role.id} /></span><div><h3>{role.title[lang]}</h3><p class="employer">{role.employer[lang]}</p></div></div><p>{role.description[lang]}</p></div></li>)}</ol>
       </section>
       <section id="project" class="section project" aria-labelledby="project-title">
         <div class="case"><p class="eyebrow">{t.projectLabel} / Django</p><h2 id="project-title">{t.caseTitle}</h2><p class="employer">{date(projectRole.start, lang)} – {date(projectRole.end, lang)} · {projectRole.employer[lang]}</p><h3>{t.need}</h3><p>{t.needText}</p><h3>{t.built}</h3><p>{t.builtText}</p><p class="tools">{t.tools}</p></div>

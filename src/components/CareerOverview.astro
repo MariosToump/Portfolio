@@ -1,0 +1,15 @@
+---
+import { roles, date, type Lang } from '../data/content';
+import RoleIcon from './RoleIcon.astro';
+interface Props { lang: Lang; label: string; labels: string[] }
+const { lang, label, labels } = Astro.props;
+const stages = [
+  { start: roles.find(role => role.id === 'cnc')!, end: roles.find(role => role.id === 'cnc')!, kind: 'cnc' },
+  { start: roles.find(role => role.id === 'sovel-web')!, end: roles.find(role => role.id === 'sovel-maintenance')!, kind: 'sovel-web' },
+  { start: roles.find(role => role.id === 'telus')!, end: roles.find(role => role.id === 'telus')!, kind: 'telus' },
+  { start: roles.find(role => role.id === 'accenture')!, end: roles.find(role => role.id === 'accenture')!, kind: 'accenture' },
+];
+---
+<div class="career-overview" role="group" aria-label={label}>
+  {stages.map((stage, index) => <div class="career-stage"><span class="career-stage-icon"><RoleIcon kind={stage.kind} /></span><div><h3>{labels[index]}</h3><p>{date(stage.start.start, lang)} – {date(stage.end.end, lang)}</p></div></div>)}
+</div>
