@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import type { Project } from '../data/projects';
+import type { Lang } from '../data/content';
+import piano from '../assets/projects/piano-app.png';
+import neon from '../assets/projects/neon-riot.png';
+interface Props { project: Project; lang: Lang; focusLabel: string }
+const { project, lang, focusLabel } = Astro.props;
+const Preview = project.url ? 'a' : 'div';
+const preview = project.id === 'piano-app' ? piano : neon;
+const alt = project.id === 'piano-app'
+  ? (lang === 'en' ? 'Current Android piano app: falling notes, hand guides and an on-screen keyboard during a scale exercise.' : 'Τρέχουσα εφαρμογή πιάνου Android: κινούμενες νότες, οδηγοί χεριών και πληκτρολόγιο σε άσκηση κλίμακας.')
+  : (lang === 'en' ? 'Neon Riot title screen from the playable web build, showing its neon city, pixel character and keyboard controls.' : 'Οθόνη τίτλου από την έκδοση web του Neon Riot, με πόλη νέον, χαρακτήρα pixel και οδηγίες χειρισμού.');
+---
+<article class="project-entry" id={project.id}>
+  <Preview class:list={['project-visual', `project-visual--${project.id}`, { 'm-zoom': Boolean(project.url) }]} href={project.url || undefined} aria-label={project.url ? `${project.title[lang]} — ${project.linkLabel?.[lang]}` : undefined}>
+    <Image src={preview} alt={alt} width={project.id === 'piano-app' ? 900 : 1600} format="webp" quality={88} loading="lazy" data-source="client-project" data-subject={project.title.en} />
+  </Preview>
+  <div class="project-copy">
+    <div class="project-identity">
+      <p class="eyebrow">{project.category[lang]}</p>
+      <h3>{project.url ? <a href={project.url}>{project.title[lang]}<span aria-hidden="true">↗</span></a> : project.title[lang]}</h3>
+      <p class="project-status">{project.status[lang]}</p>
+      <ul class="project-tools" aria-label={lang === 'en' ? 'Technologies' : 'Τεχνολογίες'}>{project.tools.map(tool => <li>{tool}</li>)}</ul>
+    </div>
+    <div class="project-description">
+      <p>{project.description[lang]}</p>
+      <p class="project-focus"><strong>{focusLabel}.</strong> {project.focus[lang]}</p>
+      <div class="project-links">
+        {project.url && <a class="source-link" href={project.url}>{project.linkLabel?.[lang]}<span aria-hidden="true">↗</span></a>}
+        {project.secondaryLink && <a class="source-link secondary-project-link" href={project.secondaryLink.url}>{project.secondaryLink.label[lang]}<span aria-hidden="true">↗</span></a>}
+      </div>
+    </div>
+  </div>
+</article>

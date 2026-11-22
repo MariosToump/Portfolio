@@ -2,3 +2,16 @@ ff6_automation.py
 ff6_automation_gui.py
 requirements.txt
 test_keys.py
+
+node_modules/
+dist/
+.astro/
+.wrangler/
+release/
+.taste-skill/
+debug.log
+.env
+.env.*
+test-results/
+*.pdf
+!public/downloads/*.pdf

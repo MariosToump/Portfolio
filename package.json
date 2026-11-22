@@ -1,0 +1,22 @@
+{
+  "name": "marios-cv-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro check && astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "test": "node tests/verify.mjs"
+  },
+  "dependencies": {
+    "astro": "7.4.13",
+    "@fontsource/noto-serif": "latest",
+    "@fontsource/noto-sans": "latest"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "typescript": "latest",
+    "@playwright/test": "latest"
+  }
+}

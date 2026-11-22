@@ -1,0 +1,4 @@
+Asset: marios-portrait.png
+Created from the portrait supplied by the site owner using the built-in image editing tool.
+Prompt: Remove only the dark blue background and line patterns; preserve the person's identity, facial features, expression, hair, beard, skin texture, lighting, shirt and framing. Produce a transparent PNG with the full hair outline and shoulders. No retouching, text, shadow or replacement background.
+The website applies low opacity and a soft CSS fade; the file retains its alpha channel.

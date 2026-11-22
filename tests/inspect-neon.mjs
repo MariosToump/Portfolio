@@ -1,0 +1,11 @@
+import { chromium } from '@playwright/test';
+import { writeFile } from 'node:fs/promises';
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+const failures = [];
+page.on('pageerror', error => failures.push(error.message));
+await page.goto('https://neon-riot.ui8.dev', { waitUntil: 'networkidle', timeout: 60000 });
+await page.screenshot({ path: 'test-results/neon-live.png' });
+console.log(JSON.stringify({title:await page.title(),text:(await page.locator('body').innerText()).slice(0,4000),failures}));
+await writeFile('test-results/neon-source.html', await page.content());
+await browser.close();

@@ -1,0 +1,7 @@
+---
+import CV from '../../components/CV.astro';
+import type { Lang } from '../../data/content';
+export function getStaticPaths() { return [{ params: { lang: 'en' } }, { params: { lang: 'el' } }]; }
+const lang = Astro.params.lang as Lang;
+---
+<CV lang={lang} />
