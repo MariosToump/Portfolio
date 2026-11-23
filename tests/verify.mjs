@@ -17,6 +17,10 @@ for (const [name, engine] of [['chromium', chromium], ['webkit', webkit]]) {
     await page.waitForFunction(() => document.querySelector('.hero')?.classList.contains('is-entered'));
     assert.equal(await page.locator('html').getAttribute('lang'), lang);
     assert.equal(await page.locator('h1').count(), 1);
+    assert.equal(await page.locator('.ambient-network').getAttribute('aria-hidden'), 'true');
+    assert.equal(await page.locator('.ambient-network').evaluate(el => getComputedStyle(el).pointerEvents), 'none');
+    assert.equal(await page.locator('h1').evaluate(el => getComputedStyle(el).fontFamily.split(',')[0].replaceAll('"', '')), 'Inter');
+    assert.equal(await page.evaluate(() => [...document.fonts].filter(font => font.family === 'Inter' && font.status === 'loaded').length >= 2), true);
     assert.equal(await page.locator('.career-stage').count(), 4);
     assert.equal(await page.locator('.timeline .role-icon').count(), 6);
     assert.equal(await page.locator('.report-workflow[role="img"] .workflow-step').count(), 3);
@@ -119,8 +123,8 @@ for (const [name, engine] of [['chromium', chromium], ['webkit', webkit]]) {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(`${base}/${lang}/`);
     await page.evaluate(() => document.fonts.ready);
-    assert.equal(await page.evaluate(() => document.fonts.check('16px "Noto Serif"', 'Μάριος Τουμπούλας')), true);
-    assert.equal(await page.evaluate(() => document.fonts.check('16px "Noto Sans"', 'Επαγγελματική εμπειρία')), true);
+    assert.equal(await page.evaluate(() => document.fonts.check('16px "Inter"', 'Μάριος Τουμπούλας')), true);
+    assert.equal(await page.evaluate(() => document.fonts.check('16px "Inter"', 'Επαγγελματική εμπειρία')), true);
     if (name === 'chromium') {
       await page.screenshot({ path: `test-results/desktop-${lang}.png`, fullPage: true });
       await page.setViewportSize({ width: 390, height: 844 });

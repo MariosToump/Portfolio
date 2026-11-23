@@ -32,7 +32,7 @@ npm.cmd run preview -- --port 4321
 - `src/data/config.ts` defaults to no public email and no downloadable PDF. Only opt in after review. Set `email` to an explicitly approved public address. For downloads, create independently redacted PDFs, inspect their text and metadata, place only those approved copies in `public/downloads/`, and set `redactedPdfs.en` / `.el` to paths such as `/downloads/cv-en.pdf`. Never put the original CVs or cover letters into `public/`.
 - Without approved downloads, use **Print CV / Save as PDF**. The print stylesheet includes every role even after filtering and removes navigation and demo controls. With JavaScript disabled, use the browser's Print command.
 - The illustrative demo uses fictional equipment. Changes last only until navigation or reload; no data is transmitted or retained. It is separate from the original Sovel software.
-- Both Noto families are bundled by Fontsource, including Greek subsets and their license files in the installed packages. Fontsource packages use the SIL Open Font License.
+- Inter is bundled locally through Fontsource with Latin and Greek subsets at weights 400 and 600. Its SIL Open Font License and copyright notice ship at `public/licenses/inter-OFL.txt`. The original network background is a still SVG; it makes no requests, captures no input, and has no animation loop.
 
 ## Checks
 
