@@ -1,0 +1,7 @@
+---
+import { copy, type Lang } from '../data/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = copy[lang];
+---
+        <div class="demo"><div class="demo-heading"><span class="sample-mark" aria-hidden="true">↳</span><h3>{t.demoTitle}</h3></div><p class="demo-note">{t.demoNote}</p><noscript><p>{lang === 'en' ? 'Enable JavaScript to try the reporting example. The project description remains available above.' : '????????????? ?? JavaScript ??? ?? ?????????? ?? ??????????. ? ????????? ??? ????? ????????? ????????? ????????.'}</p></noscript><form id="report-demo" hidden><label for="issue">{t.issue}</label><select id="issue">{t.issues.map((issue, i) => <option value={i}>{issue}</option>)}</select><label class="checkbox" for="critical"><input type="checkbox" id="critical" />{t.critical}</label><label for="status">{t.status}</label><select id="status">{t.statuses.map((status, i) => <option value={i}>{status}</option>)}</select><div class="summary"><span class="eyebrow">{t.summary}</span><div id="management-summary" role="status" aria-live="polite" aria-atomic="true" data-normal={t.normal} data-urgent={t.urgent}><p id="summary-issue">{t.issues[0]}</p><p><span id="summary-priority">{t.normal}</span><span aria-hidden="true"> · </span><strong id="summary-status">{t.statuses[0]}</strong></p></div></div><button type="reset" class="reset">{t.reset}<span aria-hidden="true">↺</span></button></form></div>

@@ -1,0 +1,20 @@
+---
+import SiteLayout from '../../components/SiteLayout.astro';
+import RoleIcon from '../../components/RoleIcon.astro';
+import { roles, education, date, copy, type Lang } from '../../data/content';
+import { developmentProjects } from '../../data/development';
+import { siteCopy } from '../../data/site';
+export function getStaticPaths() { return ['en', 'el'].map(lang => ({ params: { lang } })); }
+const lang = Astro.params.lang as Lang;
+const t = siteCopy[lang];
+const filters = copy[lang];
+---
+<SiteLayout lang={lang} title={t.cv} description={t.cvIntro} route="experience/">
+  <header class="page-heading cv-heading"><a href={`/${lang}/`}>{t.home}</a><h1>{t.name}</h1><p class="developer-title">{t.title}</p><p>{t.cvIntro}</p><button class="print-button" data-print hidden>{t.print}</button><p class="print-hint">{t.printHint}</p></header>
+  <section id="development" class="section" aria-labelledby="development-title"><h2 id="development-title">{t.cvProjects}</h2><ul class="cv-projects">{developmentProjects.map(project => <li><h3><a href={`/${lang}/work/${project.id}/`}>{project.title[lang]}</a></h3><p>{project.professional ? project.status[lang] : t.personal}</p><p>{project.summary[lang]}</p><p class="cv-tools">{project.tools.join(' · ')}</p></li>)}</ul></section>
+  <section id="employment" class="section" aria-labelledby="employment-title"><h2 id="employment-title">{t.employment}</h2>
+    <div class="filters" role="group" aria-label={filters.filterLabel} hidden><button data-filter="all" aria-pressed="true">{filters.all}</button><button data-filter="operations" aria-pressed="false">{filters.operations}</button><button data-filter="technical" aria-pressed="false">{filters.technical}</button><span id="filter-count" role="status">{roles.length} {filters.showing}</span></div>
+    <ol class="timeline">{roles.map(role => <li id={role.id} data-groups={role.groups.join(' ')}><div class="role-date"><span>{date(role.start, lang)} – {date(role.end, lang)}</span>{role.end === null && <span class="now">{lang === 'en' ? 'Current role' : 'Τρέχουσα θέση'}</span>}</div><div class="role-content"><div class="role-heading"><span class="role-art"><RoleIcon kind={role.id} /></span><div><h3>{role.title[lang]}</h3><p class="employer">{role.employer[lang]}</p></div></div><p>{role.description[lang]}</p></div></li>)}</ol>
+  </section>
+  <section id="education" class="section education" aria-labelledby="education-title"><div><h2 id="education-title">{t.training}</h2><div class="education-list">{education.map(item => <div><h3>{item.school[lang]}<span>{item.start}–{item.end}</span></h3><p>{item.subject[lang]}</p></div>)}</div></div><aside class="languages"><h2>{t.languages}</h2>{t.languageList.map(language => <p>{language}</p>)}</aside></section>
+</SiteLayout>

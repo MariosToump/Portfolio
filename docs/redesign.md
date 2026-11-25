@@ -1,3 +1,15 @@
+# Developer portfolio structure (25 November 2026)
+
+The primary audience is now people reviewing Marios?s development work. The homepage leads with a developer introduction and an Explore my work action. Selected work appears in this order: the professional Sovel Django application, the Android piano app, Warlocks on Android and Neon Riot. Professional development is distinguished from personal projects; Accenture remains accurately identified as the current claims role.
+
+Shared navigation is Work, Experience & CV, About and Contact. The homepage carries short project summaries, skills tied to examples, compact employment context and a short biography. Each project has an English and Greek detail page. The full employment chronology, education, languages and print view live on Experience & CV. The Django page contains the explicitly fictional, browser-local reporting example. Existing project screenshots, the portrait, Inter fonts and the blue/yellow palette are retained.
+
+Humanizer guided the copy pass in both languages. Job titles, employers, dates and supported functionality are preserved. Humour is limited to personal asides about the game, music and language switching; professional history and implementation notes use plain factual language. No new metrics, seniority, release claims or employment duties were invented.
+
+Verification uses the production build and the updated Playwright suite across all page types, both languages, Chromium and WebKit, seven widths and 200% text sizing. It includes real image decoding, internal routes and anchors, translated detail paths, the CV filters and print behaviour, demo controls/reset, touch emulation, no-JavaScript fallbacks and build privacy. Screenshots and printable CV samples stay under ignored test-results. The Impeccable context engine was unavailable; no automated design-detector pass is claimed.
+
+The earlier design decisions below are retained as historical context; the information architecture above supersedes the earlier single-page CV plan.
+
 GATE: ERROR (consistency.mjs could not walk 1440, 390; check.mjs could not run (exit 2: check: timed out))
 
 # Personal CV and portfolio — design plan and verification report

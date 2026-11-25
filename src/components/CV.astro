@@ -1,93 +1,23 @@
 ---
-import { copy, roles, education, projects, date, type Lang } from '../data/content';
-import { publicContact } from '../data/config';
 import { Image } from 'astro:assets';
+import { roles, date, type Lang } from '../data/content';
+import { siteCopy } from '../data/site';
+import { developmentProjects } from '../data/development';
 import portrait from '../assets/marios-portrait.png';
+import SiteLayout from './SiteLayout.astro';
 import ProjectCard from './ProjectCard.astro';
-import RoleIcon from './RoleIcon.astro';
-import CareerOverview from './CareerOverview.astro';
-import ReportWorkflow from './ReportWorkflow.astro';
-import AmbientNetwork from './AmbientNetwork.astro';
-import '@fontsource/inter/latin-400.css';
-import '@fontsource/inter/greek-400.css';
-import '@fontsource/inter/latin-600.css';
-import '@fontsource/inter/greek-600.css';
-import '../styles/global.css';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const t = copy[lang];
-const other = lang === 'en' ? 'el' : 'en';
-const projectRole = roles.find(role => role.id === 'sovel-web')!;
-const nav = [['projects', t.projects], ['experience', t.experience], ['project', t.project], ['creative', t.creative], ['education', t.education]];
+const t = siteCopy[lang];
+const recentRoles = roles.filter(role => ['accenture', 'telus', 'sovel-maintenance'].includes(role.id));
 ---
-<!doctype html>
-<html lang={lang} data-type="service" data-radius="soft" data-buttons="solid" data-motion>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content={t.intro} />
-    <meta name="theme-color" content="#c8e5ef" />
-    <meta name="page-type" content="service" />
-    <meta name="site-kind" content="other" />
-    <meta property="og:title" content={t.name} />
-    <meta property="og:description" content={t.intro} />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://marios-toumpoulas.pages.dev/images/share.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="canonical" href={`https://marios-toumpoulas.pages.dev/${lang}/`} />
-    <title>{t.name} — {t.tagline}</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" hreflang="en" href="/en/" />
-    <link rel="alternate" hreflang="el" href="/el/" />
-    <link rel="stylesheet" href="/design/motion/motion.css" />
-    <script is:inline>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
-  </head>
-  <body>
-    <AmbientNetwork />
-    <a class="skip" href="#main">{t.skip}</a>
-    <header class="site-header wrap">
-      <div class="utility"><a class="monogram" href={`/${lang}/`} aria-label={t.name}>MT<span>.</span></a><span class="location">{t.location}</span><div class="utility-links"><a href="#about">{t.about}</a><a href="#contact">{t.contact}</a><span class="language"><span aria-current="true">{lang.toUpperCase()}</span><span aria-hidden="true">/</span><a class="language-switch" href={`/${other}/`} lang={other} hreflang={other} aria-label={other === 'el' ? 'Ελληνικά' : 'English'}>{other.toUpperCase()}</a></span></div></div>
-      <nav aria-label={lang === 'en' ? 'Main navigation' : 'Κύρια πλοήγηση'}><a class="mobile-only" href="#about">{t.about}<span aria-hidden="true">↗</span></a>{nav.map(([id, title]) => <a href={`#${id}`}>{title}<span aria-hidden="true">↗</span></a>)}<a class="mobile-only" href="#contact">{t.contact}<span aria-hidden="true">↗</span></a></nav>
-    </header>
-    <main id="main" class="wrap">
-      <section id="about" class="hero hero--split" data-enter aria-labelledby="name">
-        <div class="intro">
-          <p class="eyebrow">{t.tagline}</p>
-          <h1 id="name">{t.name.split(' ').map((part, index) => <>{index > 0 && ' '}<span class="name-part">{part}</span></>)}</h1>
-          <p class="intro-text">{t.intro}</p>
-          <div class="actions"><a class="button primary btn btn--primary" href="#experience">{t.experienceLink}<span aria-hidden="true">↓</span></a><a class="text-action btn btn--secondary" href="#projects">{t.projectLink}<span aria-hidden="true">↗</span></a></div>
-          <div class="current"><span class="current-dot" aria-hidden="true"></span><div><span class="eyebrow">{t.current}</span><p>{t.currentRole}</p></div></div>
-        </div>
-        <div class="hero-side">
-        <div class="hero-portrait" data-enter-media aria-hidden="true"><Image src={portrait} alt="" width={800} widths={[400, 640, 800]} sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1050px) 42vw, 480px" format="webp" quality={82} fetchpriority="high" loading="eager" data-source="client" data-subject="Marios Toumpoulas" /></div>
-        </div>
-        <aside class="feature" aria-label={t.featured}>
-          <p class="eyebrow">{t.featured}</p>
-          <ReportWorkflow label={t.reportFlowLabel} steps={t.reportFlowSteps} />
-          <h2>{t.projectTitle}</h2><p>{t.projectShort}</p><a href="#project">{t.projectOpen}<span aria-hidden="true">↗</span></a>
-        </aside>
-      </section>
-      <section id="projects" class="section github-projects" aria-labelledby="projects-title">
-        <div class="section-head"><div><p class="eyebrow">{lang === 'en' ? 'Current projects' : 'Τρέχοντα έργα'}</p><h2 id="projects-title">{t.projectsTitle}</h2></div><p class="projects-intro">{t.projectsIntro}</p></div>
-        <div class="project-list">{projects.map(project => <ProjectCard project={project} lang={lang} focusLabel={t.focusLabel} />)}</div>
-      </section>
-      <section id="experience" class="section" aria-labelledby="experience-title">
-        <div class="section-head"><div><p class="eyebrow">{t.experience}</p><h2 id="experience-title">{t.experienceIntro}</h2><p class="experience-summary">{t.experienceSummary}</p></div><button class="print-button" data-print hidden>{t.print}<span aria-hidden="true">↗</span></button></div>
-        <CareerOverview lang={lang} label={t.careerOverview} labels={t.careerStages} />
-        <div class="filters" role="group" aria-label={t.filterLabel} hidden><button data-filter="all" aria-pressed="true">{t.all}</button><button data-filter="operations" aria-pressed="false">{t.operations}</button><button data-filter="technical" aria-pressed="false">{t.technical}</button><span id="filter-count" role="status">{roles.length} {t.showing}</span></div>
-        <ol class="timeline">{roles.map(role => <li id={role.id} data-groups={role.groups.join(' ')}><div class="role-date"><span>{date(role.start, lang)} – {date(role.end, lang)}</span>{role.end === null && <span class="now">{t.current}</span>}</div><div class="role-content"><div class="role-heading"><span class="role-art"><RoleIcon kind={role.id} /></span><div><h3>{role.title[lang]}</h3><p class="employer">{role.employer[lang]}</p></div></div><p>{role.description[lang]}</p></div></li>)}</ol>
-      </section>
-      <section id="project" class="section project" aria-labelledby="project-title">
-        <div class="case"><p class="eyebrow">{t.projectLabel} / Django</p><h2 id="project-title">{t.caseTitle}</h2><p class="employer">{date(projectRole.start, lang)} – {date(projectRole.end, lang)} · {projectRole.employer[lang]}</p><h3>{t.need}</h3><p>{t.needText}</p><h3>{t.built}</h3><p>{t.builtText}</p><p class="tools">{t.tools}</p></div>
-        <div class="demo"><div class="demo-heading"><span class="sample-mark" aria-hidden="true">↳</span><h3>{t.demoTitle}</h3></div><p class="demo-note">{t.demoNote}</p><noscript><p>{t.noJs}</p></noscript><form id="report-demo" hidden><label for="issue">{t.issue}</label><select id="issue">{t.issues.map((issue, i) => <option value={i}>{issue}</option>)}</select><label class="checkbox" for="critical"><input type="checkbox" id="critical" />{t.critical}</label><label for="status">{t.status}</label><select id="status">{t.statuses.map((status, i) => <option value={i}>{status}</option>)}</select><div class="summary"><span class="eyebrow">{t.summary}</span><div id="management-summary" role="status" aria-live="polite" aria-atomic="true" data-normal={t.normal} data-urgent={t.urgent}><p id="summary-issue">{t.issues[0]}</p><p><span id="summary-priority">{t.normal}</span><span aria-hidden="true"> · </span><strong id="summary-status">{t.statuses[0]}</strong></p></div></div><button type="reset" class="reset">{t.reset}<span aria-hidden="true">↺</span></button></form></div>
-      </section>
-      <section id="creative" class="section creative" data-moment="word-highlight" aria-labelledby="creative-title"><p class="eyebrow">{t.creative}</p><div><h2 id="creative-title">{t.creativeTitle}</h2><p class="mo-wh__text">{t.creativeText.split('. ')[0]}.</p><p>{t.creativeText.split('. ').slice(1).join('. ')}</p><div class="creative-tags">{t.musicTags.map(tag => <span>{tag}</span>)}</div></div></section>
-      <section id="education" class="section education" aria-labelledby="education-title"><div><p class="eyebrow">{t.education}</p><h2 id="education-title">{lang === 'en' ? 'Learning & training.' : 'Σπουδές & κατάρτιση.'}</h2><div class="education-list">{education.map(item => <div><h3>{item.school[lang]}<span>{item.start}–{item.end}</span></h3><p>{item.subject[lang]}</p></div>)}</div></div><aside class="languages"><p class="eyebrow">{t.languages}</p><p>{t.greek}</p><p>{t.english}</p></aside></section>
-      <section id="contact" class="section contact" aria-labelledby="contact-title"><div><p class="eyebrow">{t.contact} / {t.location}</p><h2 id="contact-title">{t.contactTitle}</h2><p>{t.contactText}</p></div><div class="contact-links"><a href="https://www.linkedin.com/in/marios-toumpoulas-825347240">LinkedIn<span aria-hidden="true">↗</span></a><a href="https://github.com/MariosToump">GitHub<span aria-hidden="true">↗</span></a>{publicContact.email && <a href={`mailto:${publicContact.email}`}>{t.email}<span aria-hidden="true">↗</span></a>}{publicContact.redactedPdfs[lang] && <a href={publicContact.redactedPdfs[lang]!} download>{t.download}<span aria-hidden="true">↓</span></a>}</div></section>
-    </main>
-    <footer class="wrap"><span>© {new Date().getUTCFullYear()} {t.name}</span><span>{t.footer}</span><a href={`/${other}/`} class="language-switch" lang={other} hreflang={other}>{other === 'el' ? 'Στα ελληνικά ↗' : 'In English ↗'}</a></footer>
-    <script src="../scripts/interactions.ts"></script>
-    <script is:inline type="module" src="/design/motion/motion.js"></script>
-    <script is:inline type="module" src="/design/moments/moments.js"></script>
-  </body>
-</html>
+<SiteLayout lang={lang}>
+  <section class="hero hero--split" data-enter aria-labelledby="name">
+    <div class="intro"><p class="developer-title">{t.title}</p><h1 id="name">{t.name.split(' ').map((part, index) => <>{index > 0 && ' '}<span class="name-part">{part}</span></>)}</h1><p class="intro-text">{t.intro}</p><div class="actions"><a class="button primary" href="#projects">{t.explore}</a><a class="text-action" href={`/${lang}/experience/`}>{t.cv}</a></div></div>
+    <div class="hero-side"><div class="hero-portrait" data-enter-media aria-hidden="true"><Image src={portrait} alt="" width={800} widths={[400, 640, 800]} sizes="(max-width: 700px) calc(100vw - 40px), 42vw" format="webp" quality={82} fetchpriority="high" loading="eager" /></div></div>
+  </section>
+  <section id="projects" class="section" aria-labelledby="projects-title"><div class="section-head"><h2 id="projects-title">{t.selected}</h2><p class="projects-intro">{t.workIntro}</p></div>{developmentProjects.map(project => <ProjectCard project={project} lang={lang} />)}</section>
+  <section id="skills" class="section" aria-labelledby="skills-title"><h2 id="skills-title">{t.skills}</h2><div class="skill-list">{t.skillAreas.map(area => <div><h3>{area.title}</h3><p>{area.text}</p><a href={`/${lang}/work/${area.project}/`}>{area.link}</a></div>)}</div></section>
+  <section id="experience" class="section" aria-labelledby="experience-title"><div class="section-head"><h2 id="experience-title">{t.background}</h2><p class="projects-intro">{t.backgroundIntro}</p></div><div class="relevant-work"><h3>{t.relevant}</h3><p>{t.relevantText}</p><a class="source-link" href={`/${lang}/work/factory-reporting/`}>{lang === 'en' ? 'Read the case study' : 'Δείτε το έργο'}</a></div><ul class="career-summary">{recentRoles.map(role => <li><p>{date(role.start, lang)} – {date(role.end, lang)}</p><div><h3>{role.title[lang]}</h3><p>{role.employer[lang]}</p></div></li>)}</ul><a class="source-link" href={`/${lang}/experience/`}>{t.fullCv}</a></section>
+  <section id="about" class="section about-section" aria-labelledby="about-title"><h2 id="about-title">{t.aboutTitle}</h2><p>{t.aboutText}</p></section>
+</SiteLayout>

@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import type { Lang } from '../data/content';
+import type { DevelopmentProject } from '../data/development';
+import ReportWorkflow from './ReportWorkflow.astro';
+import piano from '../assets/projects/piano-app.png';
+import neon from '../assets/projects/neon-riot.png';
+import warlocks from '../assets/projects/warlocks-android.png';
+interface Props { project: DevelopmentProject; lang: Lang }
+const { project, lang } = Astro.props;
+const images = { 'piano-app': piano, 'neon-riot': neon, 'warlocks-android': warlocks };
+const image = images[project.id as keyof typeof images];
+const alt: Record<string, Record<Lang, string>> = {
+  'piano-app': { en: 'Android piano practice screen with falling notes, hand guides and a keyboard.', el: 'Οθόνη εξάσκησης πιάνου Android με κινούμενες νότες, οδηγούς χεριών και πληκτρολόγιο.' },
+  'neon-riot': { en: 'Neon Riot title screen with its neon city, pixel character and keyboard controls.', el: 'Οθόνη τίτλου του Neon Riot με πόλη νέον, χαρακτήρα pixel και οδηγίες χειρισμού.' },
+  'warlocks-android': { en: 'Warlocks title screen rendered from the Android Godot project on a desktop.', el: 'Οθόνη τίτλου του Warlocks από το έργο Android σε Godot, σε υπολογιστή.' },
+};
+---
+<div class:list={['project-visual', `project-visual--${project.id}`]}>
+  {image ? <Image src={image} alt={alt[project.id][lang]} width={project.id === 'piano-app' ? 900 : 1600} format="webp" quality={88} loading="lazy" /> : <div class="workflow-preview"><ReportWorkflow label={lang === 'en' ? 'Reporting workflow diagram' : 'Διάγραμμα ροής αναφορών'} steps={lang === 'en' ? ['Log a fault', 'Flag priority', 'Track status'] : ['Καταγραφή βλάβης', 'Επισήμανση προτεραιότητας', 'Παρακολούθηση κατάστασης']} /><p>{lang === 'en' ? 'Workflow diagram. The original interface is not shown.' : 'Διάγραμμα ροής. Δεν απεικονίζει το αρχικό περιβάλλον της εφαρμογής.'}</p></div>}
+</div>

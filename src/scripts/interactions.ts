@@ -44,3 +44,15 @@ function preserveSection() {
 }
 preserveSection();
 window.addEventListener('hashchange', preserveSection);
+
+// Preserve bookmarks from the original single-page CV.
+if (/^\/(en|el)?\/?$/.test(window.location.pathname)) {
+  const lang = document.documentElement.lang;
+  const destinations: Record<string, string> = {
+    '#project': `/${lang}/work/factory-reporting/`,
+    '#education': `/${lang}/experience/#education`,
+    '#creative': `/${lang}/#about`,
+  };
+  const destination = destinations[window.location.hash];
+  if (destination) window.location.replace(destination);
+}

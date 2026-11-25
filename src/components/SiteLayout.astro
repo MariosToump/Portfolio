@@ -1,0 +1,55 @@
+---
+import { siteCopy } from '../data/site';
+import type { Lang } from '../data/content';
+import { publicContact } from '../data/config';
+import AmbientNetwork from './AmbientNetwork.astro';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/greek-400.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/greek-600.css';
+import '../styles/global.css';
+import '../styles/portfolio.css';
+interface Props { lang: Lang; title?: string; description?: string; route?: string }
+const { lang, title, description, route = '' } = Astro.props;
+const t = siteCopy[lang];
+const other = lang === 'en' ? 'el' : 'en';
+const home = `/${lang}/`;
+const pageTitle = title ? `${title} | ${t.name}` : `${t.name} | ${t.title}`;
+---
+<!doctype html>
+<html lang={lang} data-motion>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description || t.intro} />
+    <meta name="theme-color" content="#c8e5ef" />
+    <title>{pageTitle}</title>
+    <link rel="canonical" href={`https://marios-toumpoulas.pages.dev/${lang}/${route}`} />
+    <link rel="alternate" hreflang="en" href={`/en/${route}`} />
+    <link rel="alternate" hreflang="el" href={`/el/${route}`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description || t.intro} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://marios-toumpoulas.pages.dev/${lang}/${route}`} />
+    <meta property="og:image" content="https://marios-toumpoulas.pages.dev/images/share.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/design/motion/motion.css" />
+    <script is:inline>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+  </head>
+  <body>
+    <AmbientNetwork />
+    <a class="skip" href="#main">{t.skip}</a>
+    <header class="site-header wrap">
+      <div class="utility"><a class="monogram" href={home} aria-label={t.name}>MT<span>.</span></a><span class="location">{t.location}</span><span class="language"><span aria-current="true">{lang.toUpperCase()}</span><span aria-hidden="true">/</span><a class="language-switch" href={`/${other}/${route}`} lang={other} hreflang={other} aria-label={other === 'el' ? 'Ελληνικά' : 'English'}>{other.toUpperCase()}</a></span></div>
+      <nav aria-label={lang === 'en' ? 'Main navigation' : 'Κύρια πλοήγηση'}>
+        <a href={`${home}#projects`}>{t.work}</a><a href={`${home}experience/`} aria-current={route === 'experience/' ? 'page' : undefined}>{t.cv}</a><a href={`${home}#about`}>{t.about}</a><a href="#contact">{t.contact}</a>
+      </nav>
+    </header>
+    <main id="main" class="wrap"><slot /></main>
+    <section id="contact" class="section contact wrap" aria-labelledby="contact-title"><div><h2 id="contact-title">{t.contactTitle}</h2><p>{t.contactText}</p></div><div class="contact-links"><a href="https://github.com/MariosToump">GitHub</a><a href="https://www.linkedin.com/in/marios-toumpoulas-825347240">LinkedIn</a>{publicContact.email && <a href={`mailto:${publicContact.email}`}>Email</a>}{publicContact.redactedPdfs[lang] && <a href={publicContact.redactedPdfs[lang]!} download>{t.cv}</a>}</div></section>
+    <footer class="wrap"><span>© {new Date().getUTCFullYear()} {t.name}</span><span>{t.footer}</span><a class="language-switch" href={`/${other}/${route}`} lang={other}>{other === 'el' ? 'Ελληνικά' : 'English'}</a></footer>
+    <script src="../scripts/interactions.ts"></script>
+    <script is:inline type="module" src="/design/motion/motion.js"></script>
+  </body>
+</html>

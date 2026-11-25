@@ -1,0 +1,78 @@
+/* Developer portfolio: shared pages keep the established colours and typography. */
+::selection{background:#11635e;color:#fff}
+h1,h2,h3{letter-spacing:-.035em;text-wrap:balance}
+.utility>.language{margin-left:auto}
+.site-header nav a[aria-current=page]{font-weight:600;text-decoration:underline}
+.developer-title{font-size:1.125rem;color:var(--teal);font-weight:600;margin-bottom:20px}
+.hero{min-height:0;padding-block:64px;align-items:center}
+.hero .intro-text{max-width:48ch}
+.project-entry{gap:48px;padding-block:40px}
+.project-preview-link{display:block;min-width:0;text-decoration:none}
+.project-copy>h3{font-size:clamp(1.5rem,2.5vw,2rem);font-weight:600;margin:8px 0 16px}
+.project-copy>h3 a{text-decoration:none}
+.project-category,.project-role,.detail-status{font-size:.875rem;color:var(--muted)}
+.project-role{margin-top:16px}
+.project-copy .project-status{margin:0 0 16px}
+.project-tools{margin:16px 0 0;font-size:.875rem}
+.project-links .source-link{margin-top:12px}
+.project-visual{min-height:0}
+.project-visual--piano-app{min-height:0;height:390px;padding:20px}
+.project-visual--piano-app img{height:350px;width:auto}
+.project-visual--factory-reporting{min-height:280px;background:#e4eee7}
+.workflow-preview{width:100%}
+.workflow-step,.workflow-heading{font-size:.875rem}
+.workflow-preview>p{font-size:.875rem;color:var(--muted);margin:24px auto 0;max-width:38ch;text-align:center}
+.skill-list{margin-top:40px}
+.skill-list>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1fr);gap:32px;padding-block:24px;border-top:1px solid var(--line);align-items:start}
+.skill-list h3,.relevant-work h3,.career-summary h3{font-size:1.125rem;font-weight:600}
+.skill-list a{font-size:.875rem;color:var(--teal)}
+.relevant-work{max-width:75ch;margin-bottom:32px}
+.relevant-work>p{margin-top:12px}
+.career-summary{list-style:none;padding:0;margin:0}
+.career-summary li{display:grid;grid-template-columns:1fr 2fr;gap:32px;padding-block:20px;border-top:1px solid var(--line)}
+.career-summary p{font-size:.875rem;color:var(--muted)}
+.about-section{display:grid;grid-template-columns:1fr 1.5fr;gap:64px}
+.page-heading{padding-block:64px 48px;max-width:900px}
+.page-heading>a{font-size:.875rem;color:var(--teal)}
+.page-heading h1{font-size:clamp(2rem,5vw,4rem);margin:28px 0 20px;overflow-wrap:anywhere}
+.page-heading p{margin-top:16px}
+.page-heading .print-button{margin-top:24px}
+.page-heading .print-hint{font-size:.875rem;color:var(--muted)}
+.project-detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:start;padding-block:0 56px}
+.project-detail h2{font-size:1.375rem;font-weight:600;margin-bottom:16px}
+.project-detail h2:not(:first-child){margin-top:32px}
+.project-detail .project-role{margin:0 0 12px}
+.project-detail .project-visual--piano-app{height:600px}
+.project-detail .project-visual--piano-app img{height:560px}
+.demo-section .demo{max-width:800px;margin-inline:auto}
+.project-next{border-top:1px solid var(--line);padding-block:40px;display:flex;flex-wrap:wrap;gap:16px 32px}
+.project-next h2{font-size:1.25rem;width:100%;font-weight:600}
+.project-next a{color:var(--teal)}
+.cv-projects{padding:0;list-style:none;margin:32px 0 0}
+.cv-projects li{padding-block:20px;border-top:1px solid var(--line)}
+.cv-projects h3{font-size:1.125rem;font-weight:600}
+.cv-projects h3+p,.cv-tools{font-size:.875rem;color:var(--muted);margin-top:8px}
+.cv-projects li>p:nth-of-type(2){margin-top:12px}
+.filters{margin-top:32px}
+.languages h2{font-size:1.25rem}
+.cv-heading .print-hint{max-width:60ch}
+@media(max-width:1050px){.project-entry,.project-detail,.about-section{gap:32px}.skill-list>div{grid-template-columns:1fr 2fr}.skill-list a{grid-column:2}}
+@media(max-width:700px){
+  .workflow-track{grid-template-columns:1fr;gap:12px}.workflow-step{display:flex;align-items:center;justify-content:flex-start;gap:16px;text-align:left}.workflow-step>span:last-child{overflow-wrap:normal}.workflow-connector{display:none}.workflow-symbol{flex-shrink:0}
+  .hero{padding-block:40px;gap:24px}.developer-title{font-size:1rem}.section-head h2{margin-bottom:20px}
+  .project-entry{gap:24px}.project-copy{display:block}.project-preview-link{grid-row:2}.project-copy{grid-row:1}
+  .project-visual--piano-app{height:340px}.project-visual--piano-app img{height:300px}
+  .skill-list>div{display:block}.skill-list p{margin-block:12px}.career-summary li{grid-template-columns:1fr;gap:8px}
+  .about-section,.project-detail{grid-template-columns:1fr;gap:24px}.about-section h2{margin-bottom:0}
+  .page-heading{padding-block:40px 32px}.page-heading h1{font-size:2.25rem}
+  .project-detail .project-visual--piano-app{height:480px}.project-detail .project-visual--piano-app img{height:440px}
+  .project-detail .project-visual{order:2}.project-detail>div:last-child{order:1}
+}
+@media print{
+  p{max-width:none}.contact{padding-block:8pt}.contact h2{font-size:12pt;margin:0 0 5pt}.contact-links a{font-size:8pt}
+  .page-heading{padding:0 0 10pt;max-width:none}.page-heading>a,.print-hint,.project-next{display:none!important}
+  .page-heading h1{font-size:24pt;margin:0 0 8pt}.page-heading p{font-size:9pt;margin-top:6pt}
+  .cv-projects{margin-top:8pt}.cv-projects li{padding-block:6pt;break-inside:avoid}.cv-projects h3{font-size:11pt}.cv-projects p,.cv-tools{font-size:9pt;margin-top:4pt!important}
+  .section{padding-block:10pt}.section h2{font-size:16pt}.developer-title{font-size:11pt}
+  .about-section,.project-detail{display:block}.skill-list>div{display:block;padding-block:6pt;break-inside:avoid}
+}

@@ -1,0 +1,18 @@
+---
+import SiteLayout from '../../../components/SiteLayout.astro';
+import ProjectVisual from '../../../components/ProjectVisual.astro';
+import ReportDemo from '../../../components/ReportDemo.astro';
+import { developmentProjects } from '../../../data/development';
+import { siteCopy } from '../../../data/site';
+import type { Lang } from '../../../data/content';
+export function getStaticPaths() { return ['en', 'el'].flatMap(lang => developmentProjects.map(project => ({ params: { lang, project: project.id }, props: { project } }))); }
+const lang = Astro.params.lang as Lang;
+const { project } = Astro.props;
+const t = siteCopy[lang];
+---
+<SiteLayout lang={lang} title={project.title[lang]} description={project.summary[lang]} route={`work/${project.id}/`}>
+  <header class="page-heading"><a href={`/${lang}/#projects`}>{t.back}</a><h1>{project.title[lang]}</h1><p class="project-category">{project.category[lang]} · {project.professional ? t.professional : t.personal}</p><p>{project.summary[lang]}</p><p class="detail-status">{project.status[lang]}</p></header>
+  <div class="project-detail"><ProjectVisual project={project} lang={lang} /><div><h2>{t.contribution}</h2><p class="project-role">{project.role[lang]}</p><p>{project.description[lang]}</p><h2>{t.implementation}</h2><p>{project.focus[lang]}</p><ul class="project-tools">{project.tools.map(tool => <li>{tool}</li>)}</ul><div class="project-links">{project.url && <a class="source-link" href={project.url}>{project.linkLabel?.[lang]}</a>}{project.secondaryLink && <a class="source-link" href={project.secondaryLink.url}>{project.secondaryLink.label[lang]}</a>}</div></div></div>
+  {project.id === 'factory-reporting' && <section class="section demo-section" aria-label={lang === 'en' ? 'Reporting example' : 'Παράδειγμα αναφοράς'}><ReportDemo lang={lang} /></section>}
+  <nav class="project-next" aria-label={lang === 'en' ? 'More projects' : 'Περισσότερα έργα'}><h2>{t.back}</h2>{developmentProjects.filter(item => item.id !== project.id).map(item => <a href={`/${lang}/work/${item.id}/`}>{item.title[lang]}</a>)}</nav>
+</SiteLayout>
