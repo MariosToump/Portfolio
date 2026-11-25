@@ -1,6 +1,12 @@
 # Current project content and images
 
-Updated 22 November 2026. The project showcase now focuses on the piano application and Neon Riot. Wedding Media Uploader, My Task Sleep and the older portfolio entry are removed from the showcase, along with their unused interface images and capture fixtures.
+Updated 25 November 2026. The project showcase includes Warlocks on Android, the piano application and Neon Riot. Wedding Media Uploader, My Task Sleep and the older portfolio entry are removed from the showcase, along with their unused interface images and capture fixtures.
+
+## Warlocks on Android
+
+Sources: [the public repository and README](https://github.com/MariosToump/warlocks_on_android) at commit `f6018fa94fa9a90a41456320e7a3ad6fc0d6a074`, its Godot project and scripts, and the published v0.8.1 Android release. The description covers the implemented arena, knockback spells, three AI opponents, touch aiming and between-round shop. PixelLab is credited for pixel art. Development is ongoing; the download link opens the latest GitHub release page.
+
+`src/assets/projects/warlocks-android.png` is a 1920×1080 capture of the actual title screen, rendered locally from the Android repository using Godot 4.7.2. It is a desktop rendering of the project, not a physical-phone screenshot or generated concept art. The title overlays the live bot arena. Astro serves an optimized WebP, using the same project-card layout as the other entries.
 
 ## Piano practice application
 

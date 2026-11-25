@@ -4,13 +4,16 @@ import type { Project } from '../data/projects';
 import type { Lang } from '../data/content';
 import piano from '../assets/projects/piano-app.png';
 import neon from '../assets/projects/neon-riot.png';
+import warlocks from '../assets/projects/warlocks-android.png';
 interface Props { project: Project; lang: Lang; focusLabel: string }
 const { project, lang, focusLabel } = Astro.props;
 const Preview = project.url ? 'a' : 'div';
-const preview = project.id === 'piano-app' ? piano : neon;
+const preview = { 'piano-app': piano, 'neon-riot': neon, 'warlocks-android': warlocks }[project.id];
 const alt = project.id === 'piano-app'
   ? (lang === 'en' ? 'Current Android piano app: falling notes, hand guides and an on-screen keyboard during a scale exercise.' : 'Τρέχουσα εφαρμογή πιάνου Android: κινούμενες νότες, οδηγοί χεριών και πληκτρολόγιο σε άσκηση κλίμακας.')
-  : (lang === 'en' ? 'Neon Riot title screen from the playable web build, showing its neon city, pixel character and keyboard controls.' : 'Οθόνη τίτλου από την έκδοση web του Neon Riot, με πόλη νέον, χαρακτήρα pixel και οδηγίες χειρισμού.');
+  : project.id === 'warlocks-android'
+    ? (lang === 'en' ? 'Warlocks on Android title screen captured from the Godot project, with its stone arena and surrounding lava.' : 'Οθόνη τίτλου του Warlocks on Android από το έργο Godot, με την πέτρινη αρένα και τη λάβα γύρω της.')
+    : (lang === 'en' ? 'Neon Riot title screen from the playable web build, showing its neon city, pixel character and keyboard controls.' : 'Οθόνη τίτλου από την έκδοση web του Neon Riot, με πόλη νέον, χαρακτήρα pixel και οδηγίες χειρισμού.');
 ---
 <article class="project-entry" id={project.id}>
   <Preview class:list={['project-visual', `project-visual--${project.id}`, { 'm-zoom': Boolean(project.url) }]} href={project.url || undefined} aria-label={project.url ? `${project.title[lang]} — ${project.linkLabel?.[lang]}` : undefined}>

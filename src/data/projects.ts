@@ -1,7 +1,7 @@
 import type { Lang } from './content';
 type Bilingual = Record<Lang, string>;
 export type Project = {
-  id: 'piano-app' | 'neon-riot';
+  id: 'piano-app' | 'neon-riot' | 'warlocks-android';
   title: Bilingual;
   category: Bilingual;
   description: Bilingual;
@@ -14,6 +14,18 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    id: 'warlocks-android',
+    title: { en: 'Warlocks on Android', el: 'Warlocks on Android' },
+    category: { en: 'Android game · Arena combat', el: 'Παιχνίδι Android · Μάχες σε αρένα' },
+    status: { en: 'In development · Android download available', el: 'Σε ανάπτυξη · Διαθέσιμη λήψη για Android' },
+    description: { en: 'I am developing a top-down pixel-art arena game in Godot and GDScript. You face three AI wizards on a stone platform surrounded by lava, using spells to knock opponents off the edge. The arena shrinks as each round progresses, with a shop between rounds for spell upgrades and equipment.', el: 'Αναπτύσσω ένα παιχνίδι μάχης σε αρένα με γραφικά pixel art και κάμερα από ψηλά, σε Godot και GDScript. Αντιμετωπίζετε τρεις μάγους με τεχνητή νοημοσύνη σε μια πέτρινη πλατφόρμα μέσα στη λάβα, χρησιμοποιώντας ξόρκια για να τους σπρώξετε έξω από την αρένα. Η πλατφόρμα μικραίνει σε κάθε γύρο, ενώ ανάμεσα στους γύρους υπάρχει κατάστημα για αναβαθμίσεις ξορκιών και εξοπλισμό.' },
+    focus: { en: 'The Android version brings together touch controls, drag-to-aim spells, distinct bot personalities and round-based progression. I am working on combat feedback, difficulty settings, sound and music, with pixel art made using PixelLab. The public repository includes the source code and an installable Android build as development continues.', el: 'Η έκδοση Android συνδυάζει χειρισμό αφής, στόχευση ξορκιών με σύρσιμο, διαφορετικές συμπεριφορές αντιπάλων και εξέλιξη ανά γύρο. Δουλεύω στην οπτική απόκριση της μάχης, στις ρυθμίσεις δυσκολίας, στον ήχο και στη μουσική, με γραφικά pixel art φτιαγμένα με το PixelLab. Το δημόσιο αποθετήριο περιλαμβάνει τον πηγαίο κώδικα και εγκαταστάσιμη έκδοση Android, καθώς η ανάπτυξη συνεχίζεται.' },
+    tools: ['Godot', 'GDScript', 'Android', 'Game AI', 'PixelLab'],
+    url: 'https://github.com/MariosToump/warlocks_on_android',
+    linkLabel: { en: 'View on GitHub', el: 'Δείτε στο GitHub' },
+    secondaryLink: { url: 'https://github.com/MariosToump/warlocks_on_android/releases/latest', label: { en: 'Download for Android', el: 'Λήψη για Android' } },
+  },
   {
     id: 'piano-app',
     title: { en: 'Piano practice application', el: 'Εφαρμογή εξάσκησης πιάνου' },

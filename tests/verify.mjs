@@ -24,11 +24,14 @@ for (const [name, engine] of [['chromium', chromium], ['webkit', webkit]]) {
     assert.equal(await page.locator('.career-stage').count(), 4);
     assert.equal(await page.locator('.timeline .role-icon').count(), 6);
     assert.equal(await page.locator('.report-workflow[role="img"] .workflow-step').count(), 3);
-    assert.equal(await page.locator('#projects .project-entry').count(), 2);
+    assert.equal(await page.locator('#projects .project-entry').count(), 3);
+    assert.equal(await page.locator('#warlocks-android').count(), 1);
     assert.equal(await page.locator('#piano-app').count(), 1);
     assert.equal(await page.locator('#neon-riot').count(), 1);
     assert.doesNotMatch(await page.locator('#projects').innerText(), /Wedding media uploader|My Task Sleep|wedding-uploads|shutdown-timer-app/i);
     assert.deepEqual(await page.locator('#projects .source-link').evaluateAll(links => links.map(link => link.getAttribute('href'))), [
+      'https://github.com/MariosToump/warlocks_on_android',
+      'https://github.com/MariosToump/warlocks_on_android/releases/latest',
       'https://neon-riot.ui8.dev',
       'https://ui8.ai/forge/',
     ]);
